@@ -8,10 +8,7 @@ def post_new(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            post = Post(
-                title = form.cleaned_data['title'],
-                content = form.cleaned_data['content']
-            )
+            post = Post.objects.create(**form.cleaned_data)
             post.save()
             return redirect('/')
 
